@@ -3,7 +3,12 @@ local json = require("json")
 local qs = require("querystring")
 
 local User = require("user")
-local Group = require("group")
+
+local Group = require("group/group")
+local Role = require("group/role")
+local Member = require("group/member")
+
+local Pages = require("util/pages")
 
 local function MakeRequest (Method,Endpoint,Headers,Body)
     local Response,ResponseBody = http.request(Method,Endpoint,Headers,Body)
@@ -37,8 +42,20 @@ function Client:Group (GroupId,Data)
     return Group(self,GroupId,Data)
 end
 
+function Client:Role (RoleId,Data)
+    return Role(self,RoleId,Data)
+end
+
+function Client:Member (GroupId,UserId,Data)
+    return Member(self,GroupId,UserId,Data)
+end
+
 function Client:User (UserId,Data)
     return User(self,UserId,Data)
+end
+
+function Client:PageCursor (Endpoint,Tags,Interpret,SortOrder,Limit,PageDataLocation,PageNextLocation,PagePreviousLocation,CursorTag,LimitTag,SortOrderTag)
+    return Pages.PageCursor(self,Endpoint,Tags,Interpret,SortOrder,Limit,PageDataLocation,PageNextLocation,PagePreviousLocation,CursorTag,LimitTag,SortOrderTag)
 end
 
 function Client:Authenticate (Cookie)
@@ -48,7 +65,9 @@ function Client:Authenticate (Cookie)
 end
 
 function Client:Request (Method,Endpoint,Tags,Headers,Body)
-    Endpoint = Endpoint.."?"..qs.stringify(Tags)
+    if Tags then
+        Endpoint = Endpoint.."?"..qs.stringify(Tags)
+    end
     local H = Headers or {}
     if Method ~= "GET" then
         H[#H+1] = {"X-CSRF-TOKEN",self.Token}
