@@ -11,14 +11,13 @@ function Group.__call (_,Client,GroupId,Data)
     setmetatable(self,{__index=Group})
 
     self.Client = Client
+    self.Id = GroupId
 
     if type(Data) == "table" then
         for i,v in pairs(Data) do
             self[i] = v
         end
     end
-
-    self.Id = GroupId
 
     return self
 end
