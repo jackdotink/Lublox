@@ -40,7 +40,7 @@ end
 
 function Role:GetMembers ()
     local Data = self.Client:PageCursor ("https://groups.roblox.com/v1/groups/"..self.Group.Id.."/roles/"..self.Id.."/users",nil,function(v)
-        return self.Client:Member (self.Group.Id,v.userId)
+        return self.Client:Member (self.Group,v.userId)
     end)
     self.Members = Data
     return Data
