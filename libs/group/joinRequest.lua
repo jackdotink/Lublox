@@ -34,7 +34,7 @@ local JoinRequest = {}
     @param GroupId Group|number -- The Group or GroupId the join request is for.
     @param UserId User|number -- The User or UserId that made the join request.
     @param Data {[any]=any} -- Optional preset data. Used within the library, not meant for general use.
-    @return JoinRequest
+    @return JoinRequest?
 ]=]
 function JoinRequest.__call (_,Client,GroupId,UserId,Data)
     local self = {}

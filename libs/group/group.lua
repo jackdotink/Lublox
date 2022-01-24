@@ -214,6 +214,16 @@ function Group:GetJoinRequests ()
     return self.JoinRequests
 end
 
+--[=[
+    Gets a join request by user.
+
+    @param User User|number -- The UserId or User object.
+    @return JoinRequest?
+]=]
+function Group:GetJoinRequestFromUser (User)
+    return self.Client:JoinRequest (self,User)
+end
+
 Group._Requests = {
     Name = Group.GetData,
     Description = Group.GetData,
