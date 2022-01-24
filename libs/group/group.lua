@@ -73,6 +73,12 @@ local DateTime = require("util/datetime")
     The roles in the group.
 ]=]
 --[=[
+    @within Group
+    @prop Members PageCursor
+    @readonly
+    A PageCursor object that returns pages of members.
+]=]
+--[=[
     The group object can view and edit data about groups.
 
     @class Group
@@ -160,6 +166,22 @@ function Group:GetRoles ()
     end
 end
 
+--[=[
+    Gets all members in the group.
+
+    @return PageCursor
+]=]
+function Group:GetMembers ()
+    self.Members = self.Client:PageCursor ("https://groups.roblox.com/v1/groups/"..self.Id.."/users",{},function (v)
+        return self.Client:Member (
+            self,
+            self.Client:User(v.user.userId,{Name=v.user.username,DisplayName=v.user.displayName}),
+            {Role=self.Client:Role(v.role.id,{Name=v.role.name,Description=v.role.description,Rank=v.role.rank,MemberCount=v.role.memberCount})}
+        )
+    end)
+    return self.Members
+end
+
 Group._Requests = {
     Name = Group.GetData,
     Description = Group.GetData,
@@ -172,6 +194,8 @@ Group._Requests = {
     ShoutUpdated = Group.GetData,
 
     Roles = Group.GetRoles,
+
+    Members = Group.GetMembers,
 }
 
 setmetatable(Group,Group)
