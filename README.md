@@ -19,7 +19,7 @@ This is a work in progress, and you cannot currently install this library with a
 
 ## Documentation
 
-To learn how to use Lublox, visit the [wiki](https://github.com/Uncontained0/Lublox/wiki).
+To learn how to use Lublox, visit the [documentation](https://uncontained0.github.io/Lublox/).
 
 ## Contact Info
 
