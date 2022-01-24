@@ -67,6 +67,12 @@ local DateTime = require("util/datetime")
     When the shout was updated (unix time).
 ]=]
 --[=[
+    @within Group
+    @prop Roles {Role}
+    @readonly
+    The roles in the group.
+]=]
+--[=[
     The group object can view and edit data about groups.
 
     @class Group
@@ -138,6 +144,22 @@ function Group:GetData ()
     end
 end
 
+--[=[
+    Gets the roles in the group.
+
+    @return {Role}
+]=]
+function Group:GetRoles ()
+    local Success,Body = self.Client:Request ("GET","https://groups.roblox.com/v1/groups/"..self.Id.."/roles")
+    if Success then
+        self.Roles = {}
+        for _,v in pairs(Body.roles) do
+            self.Roles[#self.Roles+1] = self.Client:Role (v.id,{Name=v.name,Rank=v.rank,MemberCount=v.memberCount})
+        end
+        return self.Roles
+    end
+end
+
 Group._Requests = {
     Name = Group.GetData,
     Description = Group.GetData,
@@ -148,6 +170,8 @@ Group._Requests = {
     ShoutPoster = Group.GetData,
     ShoutCreated = Group.GetData,
     ShoutUpdated = Group.GetData,
+
+    Roles = Group.GetRoles,
 }
 
 setmetatable(Group,Group)
