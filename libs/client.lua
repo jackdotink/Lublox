@@ -143,7 +143,7 @@ end
     @param Cookie string -- The cookie to authenticate the client with.
 ]=]
 function Client:Authenticate (Cookie)
-    self.Cookie = Cookie
+    self.Cookie = ".ROBLOSECURITY="..Cookie
     local Success = self:Request ("GET","https://users.roblox.com/v1/users/authenticated")
     assert(Success,"Lublox: Failed to authenticate!")
 end
