@@ -55,11 +55,6 @@ local DateTime = require("util/datetime")
 ]=]
 local User = {}
 
-
-function User.__index (t,i)
-    if User._Requests[i] then User._Requests[i](t) return rawget(t,i) end
-end
-
 --[=[
     Constructs a user object.
 
@@ -71,7 +66,10 @@ end
 ]=]
 function User.__call (_,Client,UserId,Data)
     local self = {}
-    setmetatable(self,{__index=User})
+    setmetatable(self,{__index=function (t,i)
+        if User[i] then return User[i] end
+        if User._Requests[i] then User._Requests[i](t) return rawget(t,i) end
+    end})
 
     self.Client = Client
 

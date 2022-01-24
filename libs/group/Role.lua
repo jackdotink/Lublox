@@ -53,10 +53,6 @@
 ]=]
 local Role = {}
 
-function Role.__index (t,i)
-    if Role._Requests[i] then Role._Requests[i](t) return rawget(t,i) end
-end
-
 --[=[
     Constructs a user object.
 
@@ -68,7 +64,10 @@ end
 ]=]
 function Role.__call (_,Client,RoleId,Data)
     local self = {}
-    setmetatable(self,{__index=Role})
+    setmetatable(self,{__index=function (t,i)
+        if Role[i] then return Role[i] end
+        if Role._Requests[i] then Role._Requests[i](t) return rawget(t,i) end
+    end})
 
     self.Client = Client
     self.Id = RoleId

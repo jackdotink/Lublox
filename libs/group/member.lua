@@ -29,10 +29,6 @@
 ]=]
 local Member = {}
 
-function Member.__index (t,i)
-    if Member._Requests[i] then Member._Requests[i](t) return rawget(t,i) end
-end
-
 --[=[
     Constructs a member object.
 
@@ -45,7 +41,10 @@ end
 ]=]
 function Member.__call (_,Client,GroupId,UserId,Data)
     local self = {}
-    setmetatable(self,{__index=Member})
+    setmetatable(self,{__index=function (t,i)
+        if Member[i] then return Member[i] end
+        if Member._Requests[i] then Member._Requests[i](t) return rawget(t,i) end
+    end})
 
     self.Client = Client
     

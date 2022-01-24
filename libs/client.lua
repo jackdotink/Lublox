@@ -44,10 +44,6 @@ end
 ]=]
 local Client = {}
 
-function Client.__index (t,i)
-    if Client._Requests[i] then t[i] = Client._Requests[i](t) return rawget(t,i) end
-end
-
 --[=[
     Constructs a client object.
 
@@ -55,7 +51,10 @@ end
 ]=]
 function Client.__call ()
     local self = {}
-    setmetatable(self,{__index=Client})
+    setmetatable(self,{__index=function (t,i)
+        if Client[i] then return Client[i] end
+        if Client._Requests[i] then Client._Requests[i](t) return rawget(t,i) end
+    end})
 
     return self
 end
