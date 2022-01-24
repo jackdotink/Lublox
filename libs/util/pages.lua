@@ -1,3 +1,9 @@
+--[=[
+    @within PageCursor
+    @prop Client Client
+    @readonly
+    
+]=]
 local PageCursor = {}
 
 function PageCursor.__call (_,Client,Endpoint,Tags,Interpret,SortOrder,Limit,PageDataLocation,PageNextLocation,PagePreviousLocation,CursorTag,LimitTag,SortOrderTag)

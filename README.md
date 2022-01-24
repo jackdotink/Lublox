@@ -1,6 +1,5 @@
 # Lublox
 **An object-oriented lua wrapper for the Roblox web API.**
-<br>
 
 ## Info
 
@@ -8,18 +7,15 @@
 
 Roblox has a web API that allows users to do almost anything that you can do on their site. This library exposes this API in an easy to use way.
 
-### Features
+## Features
 - Object Oriented
 - Supports multiple accounts
 - Easy to use
 - Just In Time Requests
 
-<br>
-
 ## Installation
 
 This is a work in progress, and you cannot currently install this library with a package manager (lit). Feel free to clone the repo into your project.
-<br>
 
 ## Documentation
 

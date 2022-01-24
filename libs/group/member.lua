@@ -1,9 +1,48 @@
+--[=[
+    @within Member
+    @prop User User
+    @readonly
+    The user that the member object represents.
+]=]
+--[=[
+    @within Member
+    @prop Group Group
+    @readonly
+    The group that the user is in.
+]=]
+--[=[
+    @within Member
+    @prop Client Client
+    @readonly
+    A reference back to the client that owns this object.
+]=]
+--[=[
+    @within Member
+    @prop Role Role
+    @readonly
+    The role the user has in the group.
+]=]
+--[=[
+    The member object can view and edit data about users in groups.
+
+    @class Member
+]=]
 local Member = {}
 
 function Member.__index (t,i)
     if Member._Requests[i] then Member._Requests[i](t) return rawget(t,i) end
 end
 
+--[=[
+    Constructs a member object.
+
+    @param _ Member
+    @param Client Client -- The client to make requests with.
+    @param GroupId Group|number -- The Group or GroupId the member belongs to.
+    @param UserId User|number -- The User or UserId the member object represents.
+    @param Data {[any]=any} -- Optional preset data. Used within the library, not meant for general use.
+    @return Member
+]=]
 function Member.__call (_,Client,GroupId,UserId,Data)
     local self = {}
     setmetatable(self,{__index=Member})
@@ -35,6 +74,11 @@ function Member.__call (_,Client,GroupId,UserId,Data)
     return self
 end
 
+--[=[
+    Gets the role of the member in the group.
+
+    @return Role?
+]=]
 function Member:GetRole ()
     local Success,Body = self.Client:Request ("GET","https://groups.roblox.com/v1/users/"..self.User.Id.."/groups/roles")
     if Success then
@@ -47,6 +91,12 @@ function Member:GetRole ()
     end
 end
 
+--[=[
+    Sets the role of the member in the group.
+
+    @param Role Role|number -- The Role or RoleId to set the user to.
+    @return boolean
+]=]
 function Member:SetRole (Role)
     local RoleId = Role
     if type(RoleId) == "table" then RoleId = RoleId.Id end
@@ -54,6 +104,11 @@ function Member:SetRole (Role)
     return Success
 end
 
+--[=[
+    Exiles the member from the group.
+
+    @return boolean
+]=]
 function Member:Exile ()
     local Success = self.Client:Request ("DELETE","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/users/"..self.User.Id)
     return Success

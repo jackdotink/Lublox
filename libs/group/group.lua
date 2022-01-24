@@ -1,11 +1,91 @@
 local DateTime = require("util/datetime")
 
+--[=[
+    @within Group
+    @prop Id number
+    @readonly
+    The GroupId of the group.
+]=]
+--[=[
+    @within Group
+    @prop Client Client
+    @readonly
+    A reference back to the client that owns this object.
+]=]
+--[=[
+    @within Group
+    @prop Name string
+    @readonly
+    The name of the group.
+]=]
+--[=[
+    @within Group
+    @prop Description strimg
+    @readonly
+    The description of the group.
+]=]
+--[=[
+    @within Group
+    @prop MemberCount number
+    @readonly
+    The number of members the group has.
+]=]
+--[=[
+    @within Group
+    @prop PublicEntryAllowed boolean
+    @readonly
+    If users are able to join the group without pending.
+]=]
+--[=[
+    @within Group
+    @prop Owner User?
+    @readonly
+    The owner of the group.
+]=]
+--[=[
+    @within Group
+    @prop ShoutBody string?
+    @readonly
+    The shout of the group.
+]=]
+--[=[
+    @within Group
+    @prop ShoutPoster User?
+    @readonly
+    The user that posted the shout.
+]=]
+--[=[
+    @within Group
+    @prop ShoutCreated number?
+    @readonly
+    When the shout was created (unix time). 
+]=]
+--[=[
+    @within Group
+    @prop ShoutUpdated number?
+    @readonly
+    When the shout was updated (unix time).
+]=]
+--[=[
+    The group object can view and edit data about groups.
+
+    @class Group
+]=]
 local Group = {}
 
 function Group.__index (t,i)
     if Group._Requests[i] then Group._Requests[i](t) return rawget(t,i) end
 end
 
+--[=[
+    Constructs a group object.
+
+    @param _ Group
+    @param Client Client -- The client to make requests with.
+    @param GroupId number -- The GroupId of the group.
+    @param Data {[any]=any} -- Optional preset data. Used within the library, not meant for general use.
+    @return Group
+]=]
 function Group.__call (_,Client,GroupId,Data)
     local self = {}
     setmetatable(self,{__index=Group})
@@ -22,6 +102,11 @@ function Group.__call (_,Client,GroupId,Data)
     return self
 end
 
+--[=[
+    Gets data about the group.
+
+    @return {Name:string,Description:string,MemberCount:number,PublicEntryAllowed:boolean,Owner:User?,ShoutBody:string?,ShoutCreated:number?,ShoutUpdated:number?,ShoutPoster:User?}
+]=]
 function Group:GetData ()
     local Success,Body = self.Client:Request ("GET","https://groups.roblox.com/v1/groups/"..self.Id)
     if Success then

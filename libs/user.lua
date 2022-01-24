@@ -1,11 +1,74 @@
 local DateTime = require("util/datetime")
 
+--[=[
+    @within User
+    @prop Id number
+    @readonly
+    The UserId of the user.
+]=]
+--[=[
+    @within User
+    @prop Client Client
+    @readonly
+    A reference back to the client that owns this object.
+]=]
+--[=[
+    @within User
+    @prop Name string
+    @readonly
+    The Username of the user.
+]=]
+--[=[
+    @within User
+    @prop Description string
+    @readonly
+    The description (about me) of the user.
+]=]
+--[=[
+    @within User
+    @prop Created number
+    @readonly
+    The creation date/time (unix time) of the user.
+]=]
+--[=[
+    @within User
+    @prop IsBanned boolean
+    @readonly
+    If the user is banned or not.
+]=]
+--[=[
+    @within User
+    @prop DisplayName string
+    @readonly
+    The display name of the user.
+]=]
+--[=[
+    @within User
+    @prop Friends {User}
+    @readonly
+    A list of users the user is friended to.
+]=]
+--[=[
+    The user object can view and edit data about users.
+
+    @class User
+]=]
 local User = {}
+
 
 function User.__index (t,i)
     if User._Requests[i] then User._Requests[i](t) return rawget(t,i) end
 end
 
+--[=[
+    Constructs a user object.
+
+    @param _ User
+    @param Client Client -- The client to make requests with.
+    @param UserId number|string -- The Username or UserId.
+    @param Data {[any]=any} -- Optional preset data. Used within the library, not meant for general use.
+    @return User
+]=]
 function User.__call (_,Client,UserId,Data)
     local self = {}
     setmetatable(self,{__index=User})
@@ -44,6 +107,11 @@ function User.__call (_,Client,UserId,Data)
     return self
 end
 
+--[=[
+    Gets data about the user.
+
+    @return {Name:string,Description:string,Created:number,IsBanned:boolean,DisplayName:string}
+]=]
 function User:GetData ()
     local Success,Body = self.Client:Request ("GET","https://users.roblox.com/v1/users/"..self.Id)
     if Success then
@@ -60,6 +128,11 @@ function User:GetData ()
     end
 end
 
+--[=[
+    Gets the users friends.
+
+    @return {User}
+]=]
 function User:GetFriends ()
     local Success,Body = self.Client:Request ("GET","https://friends.roblox.com/v1/users/"..self.Id.."/friends",{userSort="Alphabetical"})
     if Success then
@@ -78,6 +151,11 @@ function User:GetFriends ()
     end
 end
 
+--[=[
+    Gets the number of friends the user has.
+
+    @return number
+]=]
 function User:GetFriendCount ()
     local Success,Body = self.Client:Request ("GET","https://friends.roblox.com/v1/users/"..self.Id.."/friends/count")
     if Success then
