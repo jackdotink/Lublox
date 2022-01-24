@@ -170,8 +170,8 @@ function PageCursor:Next ()
 
     local Success,Body = self.Client:Request ("GET",self.Endpoint,Tags)
     if Success then
-        self.LastPage = Body[self.PageNextLocation] ~= nil
-        self.FirstPage = Body[self.PagePreviousLocation] ~= nil
+        self.LastPage = Body[self.PageNextLocation] == nil
+        self.FirstPage = Body[self.PagePreviousLocation] == nil
         self.NextCursor = Body[self.PageNextLocation]
         self.PreviousCursor = Body[self.PagePreviousLocation]
         local Data = {}
@@ -211,4 +211,5 @@ function PageCursor:Previous ()
     end
 end
 
+setmetatable(PageCursor,PageCursor)
 return {PageCursor=PageCursor}
