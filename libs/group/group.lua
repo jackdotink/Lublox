@@ -182,6 +182,16 @@ function Group:GetMembers ()
     return self.Members
 end
 
+--[=[
+    Gets a member by user.
+
+    @param User User|number -- The UserId or User object.
+    @return Member
+]=]
+function Group:GetMemberFromUser (User)
+    return self.Client:Member (self,User)
+end
+
 Group._Requests = {
     Name = Group.GetData,
     Description = Group.GetData,
