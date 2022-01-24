@@ -7,6 +7,7 @@ local User = require("user")
 local Group = require("group/group")
 local Role = require("group/role")
 local Member = require("group/member")
+local JoinRequest = require("group/joinRequest")
 
 local Pages = require("util/pages")
 
@@ -67,7 +68,7 @@ end
     @return Group
 ]=]
 function Client:Group (GroupId,Data)
-    return Group(self,GroupId,Data)
+    return Group (self,GroupId,Data)
 end
 
 --[=[
@@ -78,7 +79,7 @@ end
     @return Role
 ]=]
 function Client:Role (RoleId,Data)
-    return Role(self,RoleId,Data)
+    return Role (self,RoleId,Data)
 end
 
 --[=[
@@ -90,7 +91,7 @@ end
     @return Member
 ]=]
 function Client:Member (GroupId,UserId,Data)
-    return Member(self,GroupId,UserId,Data)
+    return Member (self,GroupId,UserId,Data)
 end
 
 --[=[
@@ -101,7 +102,7 @@ end
     @return Role
 ]=]
 function Client:User (UserId,Data)
-    return User(self,UserId,Data)
+    return User (self,UserId,Data)
 end
 
 --[=[
@@ -122,6 +123,18 @@ end
 ]=]
 function Client:PageCursor (Endpoint,Tags,Interpret,SortOrder,Limit,PageDataLocation,PageNextLocation,PagePreviousLocation,CursorTag,LimitTag,SortOrderTag)
     return Pages.PageCursor(self,Endpoint,Tags,Interpret,SortOrder,Limit,PageDataLocation,PageNextLocation,PagePreviousLocation,CursorTag,LimitTag,SortOrderTag)
+end
+
+--[=[
+    Constructs a JoinRequest object.
+
+    @param GroupId Group|number -- The Group or GroupId that join request is for.
+    @param UserId User|number -- The User or UserId that made the join request.
+    @param Data {[any]=any} -- Optional preset data. Used within the library, not meant for general use.
+    @return JoinRequest
+]=]
+function Client:JoinRequest (GroupId,UserId,Data)
+    return JoinRequest (self,GroupId,UserId,Data)
 end
 
 --[=[
