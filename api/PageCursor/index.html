@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generator" content="Docusaurus v2.0.0-beta.9">
+<title data-react-helmet="true">PageCursor | Lublox</title><meta data-react-helmet="true" property="og:title" content="PageCursor | Lublox"><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="description" content="The object represents roblox pagination, many endpoints have thousands of data points,
+and it would be too expensive to send them all in one document, so they are sent in
+managable clusters called pages.
+
+This class manages cursor-based pagination."><meta data-react-helmet="true" property="og:description" content="The object represents roblox pagination, many endpoints have thousands of data points,
+and it would be too expensive to send them all in one document, so they are sent in
+managable clusters called pages.
+
+This class manages cursor-based pagination."><meta data-react-helmet="true" property="og:url" content="https://Uncontained0.github.io/Lublox/api/PageCursor"><meta data-react-helmet="true" name="docusaurus_locale" content="en"><meta data-react-helmet="true" name="docusaurus_tag" content="default"><link data-react-helmet="true" rel="canonical" href="https://Uncontained0.github.io/Lublox/api/PageCursor"><link data-react-helmet="true" rel="alternate" href="https://Uncontained0.github.io/Lublox/api/PageCursor" hreflang="en"><link data-react-helmet="true" rel="alternate" href="https://Uncontained0.github.io/Lublox/api/PageCursor" hreflang="x-default"><link rel="stylesheet" href="/Lublox/assets/css/styles.06f234af.css">
+<link rel="preload" href="/Lublox/assets/js/runtime~main.bcb5ee65.js" as="script">
+<link rel="preload" href="/Lublox/assets/js/main.b9a504da.js" as="script">
+</head>
+<body>
+<script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
+<div><a href="#" class="skipToContent_1oUP">Skip to main content</a></div><nav class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Navigation bar toggle" class="navbar__toggle clean-btn" type="button" tabindex="0"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/Lublox/"><b class="navbar__title">Lublox</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/Lublox/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Uncontained0/Lublox" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link"><span>GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_3J9K"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></span></a><div class="toggle_71bT toggle_3Zt9 toggleDisabled_3cF-"><div class="toggleTrack_32Fl" role="button" tabindex="-1"><div class="toggleTrackCheck_3lV7"><span class="toggleIcon_O4iE">🌜</span></div><div class="toggleTrackX_S2yS"><span class="toggleIcon_O4iE">🌞</span></div><div class="toggleTrackThumb_xI_Z"></div></div><input type="checkbox" class="toggleScreenReader_28Tw" aria-label="Switch between dark and light mode"></div><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Press S to Search..." aria-label="Search" class="navbar__search-input search-bar"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div class="main-wrapper docPageContainer_2Kz0"><div class="docPage_1bdk"><div class="docSidebarContainer_1ykS"><div class="sidebar_15mo"><nav class="menu thin-scrollbar menu_Bmed"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Lublox/api/Client">​Client</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Lublox/api/Group">​Group</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Lublox/api/Member">​Member</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/Lublox/api/PageCursor">​Page​Cursor</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Lublox/api/Role">​Role</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Lublox/api/User">​User</a></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_1CGd"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_3E-R"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div><main class="docMainContainer_28N5"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_3WPG"><div class="docItemContainer_3XDu"><article><div class="member_qHIL markdown"><div class="tocCollapsible_1PrD theme-doc-toc-mobile tocMobile_3ryM"><button type="button" class="clean-btn tocCollapsibleButton_2O1e">On this page</button></div><header><h1 class="docTitle_1ddc" style="text-decoration:none"><span style="display:inline-block">Page</span><span style="display:inline-block">Cursor</span></h1><div class="luaClassTags_2Zrs"></div><div>
+<p>
+  The object represents roblox pagination, many endpoints have thousands of data points,
+  and it would be too expensive to send them all in one document, so they are sent in
+  managable clusters called pages.
+</p>
+<p>This class manages cursor-based pagination.</p>
+</div></header><h2 class="anchor anchorWithStickyNavbar_31ik" id="properties">Properties<a aria-hidden="true" class="hash-link" href="#properties" title="Direct link to heading">​</a></h2><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="Client"><code style="text-decoration:none">Client</code><a aria-hidden="true" class="hash-link" href="#Client" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L7"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->Client<!-- -->:<!-- --> </code> <code class="blue_2Afy"><a style="text-decoration:underline;color:inherit" href="/Lublox/api/Client">Client</a></code></div><div>
+<p>A reference back to the client that owns this object.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="Endpoint"><code style="text-decoration:none">Endpoint</code><a aria-hidden="true" class="hash-link" href="#Endpoint" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L13"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->Endpoint<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The URL to send requests to.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="Tags"><code style="text-decoration:none">Tags</code><a aria-hidden="true" class="hash-link" href="#Tags" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L19"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->Tags<!-- -->:<!-- --> </code> <code class="purple__nFc">{</code><span><code>[</code><code class="blue_2Afy">string</code><code>]</code></span><code class="blue_2Afy">=any</code><code class="purple__nFc">}</code></div><div>
+<p>The URL to send requests to.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="Interpret"><code style="text-decoration:none">Interpret</code><a aria-hidden="true" class="hash-link" href="#Interpret" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L25"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->Interpret<!-- -->:<!-- --> </code> <code class="blue_2Afy">function</code></div><div>
+<p>The function that parses return data to turn it into a usable form.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="SortOrder"><code style="text-decoration:none">SortOrder</code><a aria-hidden="true" class="hash-link" href="#SortOrder" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L31"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->SortOrder<!-- -->:<!-- --> </code> <code class="blue_2Afy">&quot;Asc&quot;</code><code class="op_1JtD"> | </code><code class="blue_2Afy">&quot;Desc&quot;</code></div><div>
+<p>The sort order sent with the request.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="Limit"><code style="text-decoration:none">Limit</code><a aria-hidden="true" class="hash-link" href="#Limit" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L37"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->Limit<!-- -->:<!-- --> </code> <code class="blue_2Afy">number</code></div><div>
+<p>The number of items that should be sent with each page.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="PageDataLocation"><code style="text-decoration:none">PageDataLocation</code><a aria-hidden="true" class="hash-link" href="#PageDataLocation" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L43"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->PageDataLocation<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The location where data is found for non-standard pages.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="PageNextLocation"><code style="text-decoration:none">PageNextLocation</code><a aria-hidden="true" class="hash-link" href="#PageNextLocation" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L49"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->PageNextLocation<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The location where the next page cursor is found for non-standard pages.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="PageNextLocation"><code style="text-decoration:none">PageNextLocation</code><a aria-hidden="true" class="hash-link" href="#PageNextLocation" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L55"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->PageNextLocation<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The location where the next page cursor is found for non-standard pages.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="PagePreviousLocation"><code style="text-decoration:none">PagePreviousLocation</code><a aria-hidden="true" class="hash-link" href="#PagePreviousLocation" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L61"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->PagePreviousLocation<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The location where the previous page cursor is found for non-standard pages.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="CursorTag"><code style="text-decoration:none">CursorTag</code><a aria-hidden="true" class="hash-link" href="#CursorTag" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L67"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->CursorTag<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The querystring name of the cursor for non-standard pages.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="LimitTag"><code style="text-decoration:none">LimitTag</code><a aria-hidden="true" class="hash-link" href="#LimitTag" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L73"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->LimitTag<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The querystring name of the limit for non-standard pages.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="SortOrderTag"><code style="text-decoration:none">SortOrderTag</code><a aria-hidden="true" class="hash-link" href="#SortOrderTag" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L79"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->SortOrderTag<!-- -->:<!-- --> </code> <code class="blue_2Afy">string</code></div><div>
+<p>The querystring name of the sort order for non-standard pages.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="LastPage"><code style="text-decoration:none">LastPage</code><a aria-hidden="true" class="hash-link" href="#LastPage" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L85"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->LastPage<!-- -->:<!-- --> </code> <code class="blue_2Afy">boolean</code></div><div>
+<p>If the page you are currently on is the last page.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="FirstPage"><code style="text-decoration:none">FirstPage</code><a aria-hidden="true" class="hash-link" href="#FirstPage" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L91"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->FirstPage<!-- -->:<!-- --> </code> <code class="blue_2Afy">boolean</code></div><div>
+<p>If the page you are currently on is the first page.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="NextCursor"><code style="text-decoration:none">NextCursor</code><a aria-hidden="true" class="hash-link" href="#NextCursor" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L97"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->NextCursor<!-- -->:<!-- --> </code> <code class="blue_2Afy">string?</code></div><div>
+<p>The cursor for the next page.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="PreviousCursor"><code style="text-decoration:none">PreviousCursor</code><a aria-hidden="true" class="hash-link" href="#PreviousCursor" title="Direct link to heading">​</a></h3><span class="badge_3ZFo" style="color:#e74c3c"><span class="badgeTooltip_2qiw">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_2yaQ"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L103"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.<!-- -->PreviousCursor<!-- -->:<!-- --> </code> <code class="blue_2Afy">string?</code></div><div>
+<p>The cursor for the previous page.</p>
+</div><h2 class="anchor anchorWithStickyNavbar_31ik" id="functions">Functions<a aria-hidden="true" class="hash-link" href="#functions" title="Direct link to heading">​</a></h2><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="__call "><code style="text-decoration:none">__call </code><a aria-hidden="true" class="hash-link" href="#__call" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L132"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->.</code><code class="green_3LnD">__call </code><code>(</code><div class="inset_2cJr"><div><code>_<!-- -->: </code><code class="blue_2Afy"><a style="text-decoration:underline;color:inherit" href="/Lublox/api/PageCursor">PageCursor</a></code><code>,</code></div><div><code>Client<!-- -->: </code><code class="blue_2Afy"><a style="text-decoration:underline;color:inherit" href="/Lublox/api/Client">Client</a></code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The client to make requests with.</p>
+</span></span></div><div><code>Endpoint<!-- -->: </code><code class="blue_2Afy">string</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The endpoint to get pages from.</p>
+</span></span></div><div><code>Tags<!-- -->: </code><code class="purple__nFc">{</code><span><code>[</code><code class="blue_2Afy">string</code><code>]</code></span><code class="blue_2Afy">=any</code><code class="purple__nFc">}</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>Optional list of tags to add on to the request.</p>
+</span></span></div><div><code>Interpret<!-- -->: </code><code class="blue_2Afy">function</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The function that interprets recieved data, to turn it into a useable format.</p>
+</span></span></div><div><code>SortOrder<!-- -->: </code><code class="blue_2Afy">string?</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The sort order to use when requesting for pages. Can be "Asc" or "Desc".</p>
+</span></span></div><div><code>Limit<!-- -->: </code><code class="blue_2Afy">number?</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The page item limit to use when requesting pages.</p>
+</span></span></div><div><code>PageDataLocation<!-- -->: </code><code class="blue_2Afy">string?</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The location where page data is located for non-standard pages.</p>
+</span></span></div><div><code>PageNextLocation<!-- -->: </code><code class="blue_2Afy">string?</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The location where the next page cursor is found for non-standard pages.</p>
+</span></span></div><div><code>PagePreviousLocation<!-- -->: </code><code class="blue_2Afy">string?</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The location where the previous page cursor is found for non-standard pages.</p>
+</span></span></div><div><code>CursorTag<!-- -->: </code><code class="blue_2Afy">string?</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The name of the tag to send the cursor for non-standard pages.</p>
+</span></span></div><div><code>LimitTag<!-- -->: </code><code class="blue_2Afy">string?</code><code>,</code><span class="inlineDescription_17uy">-- <span>
+<p>The name of the tag to send the limit for non-standard pages.</p>
+</span></span></div><div><code>SortOrderTag<!-- -->: </code><code class="blue_2Afy">string?</code><span class="inlineDescription_17uy">-- <span>
+<p>The name of the tag to send the sort order for non-standard pages.</p>
+</span></span></div></div><code>) → </code><code class="blue_2Afy"><a style="text-decoration:underline;color:inherit" href="/Lublox/api/PageCursor">PageCursor</a></code></div><div>
+<p>Constructs a PageCursor object.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="Next "><code style="text-decoration:none">Next </code><a aria-hidden="true" class="hash-link" href="#Next" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L161"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->:</code><code class="green_3LnD">Next </code><code>(</code><code>) → </code><code class="purple__nFc">{</code><code class="op_1JtD">&lt;</code><code class="blue_2Afy">T</code><code class="op_1JtD">&gt;</code><code class="purple__nFc">}</code></div><div>
+<p>This gets the next page and returns it.</p>
+</div><div class="divider_3z1R"></div><h3 class="anchor anchorWithStickyNavbar_31ik" id="Previous "><code style="text-decoration:none">Previous </code><a aria-hidden="true" class="hash-link" href="#Previous" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_1UH0"><a class="sourceButton_2aE5" href="https://github.com/Uncontained0/Lublox/blob/main/libs/util/pages.lua#L190"><div class="sourceButtonText_monK">&lt;/&gt;</div></a></div><div class="memberString_P8-X"><code>PageCursor<!-- -->:</code><code class="green_3LnD">Previous </code><code>(</code><code>) → </code><code class="purple__nFc">{</code><code class="op_1JtD">&lt;</code><code class="blue_2Afy">T</code><code class="op_1JtD">&gt;</code><code class="purple__nFc">}</code></div><div>
+<p>This gets the previous page and returns it.</p>
+</div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+    &quot;functions&quot;: [
+        {
+            &quot;name&quot;: &quot;__call &quot;,
+            &quot;desc&quot;: &quot;Constructs a PageCursor object.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;_&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;PageCursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Client&quot;,
+                    &quot;desc&quot;: &quot;The client to make requests with.&quot;,
+                    &quot;lua_type&quot;: &quot;Client&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Endpoint&quot;,
+                    &quot;desc&quot;: &quot;The endpoint to get pages from.&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Tags&quot;,
+                    &quot;desc&quot;: &quot;Optional list of tags to add on to the request.&quot;,
+                    &quot;lua_type&quot;: &quot;{[string]=any}&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Interpret&quot;,
+                    &quot;desc&quot;: &quot;The function that interprets recieved data, to turn it into a useable format.&quot;,
+                    &quot;lua_type&quot;: &quot;function&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;SortOrder&quot;,
+                    &quot;desc&quot;: &quot;The sort order to use when requesting for pages. Can be \&quot;Asc\&quot; or \&quot;Desc\&quot;.&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Limit&quot;,
+                    &quot;desc&quot;: &quot;The page item limit to use when requesting pages.&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;PageDataLocation&quot;,
+                    &quot;desc&quot;: &quot;The location where page data is located for non-standard pages.&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;PageNextLocation&quot;,
+                    &quot;desc&quot;: &quot;The location where the next page cursor is found for non-standard pages.&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;PagePreviousLocation&quot;,
+                    &quot;desc&quot;: &quot;The location where the previous page cursor is found for non-standard pages.&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;CursorTag&quot;,
+                    &quot;desc&quot;: &quot;The name of the tag to send the cursor for non-standard pages.&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;LimitTag&quot;,
+                    &quot;desc&quot;: &quot;The name of the tag to send the limit for non-standard pages.&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;SortOrderTag&quot;,
+                    &quot;desc&quot;: &quot;The name of the tag to send the sort order for non-standard pages.&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;PageCursor&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 132,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Next &quot;,
+            &quot;desc&quot;: &quot;This gets the next page and returns it.&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{&lt;T&gt;}&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 161,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Previous &quot;,
+            &quot;desc&quot;: &quot;This gets the previous page and returns it.&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{&lt;T&gt;}&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 190,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        }
+    ],
+    &quot;properties&quot;: [
+        {
+            &quot;name&quot;: &quot;Client&quot;,
+            &quot;desc&quot;: &quot;A reference back to the client that owns this object.&quot;,
+            &quot;lua_type&quot;: &quot;Client&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 7,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Endpoint&quot;,
+            &quot;desc&quot;: &quot;The URL to send requests to.&quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 13,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Tags&quot;,
+            &quot;desc&quot;: &quot;The URL to send requests to.&quot;,
+            &quot;lua_type&quot;: &quot;{[string]=any}&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 19,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Interpret&quot;,
+            &quot;desc&quot;: &quot;The function that parses return data to turn it into a usable form.&quot;,
+            &quot;lua_type&quot;: &quot;function&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 25,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;SortOrder&quot;,
+            &quot;desc&quot;: &quot;The sort order sent with the request.&quot;,
+            &quot;lua_type&quot;: &quot;\&quot;Asc\&quot;|\&quot;Desc\&quot;&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 31,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Limit&quot;,
+            &quot;desc&quot;: &quot;The number of items that should be sent with each page.&quot;,
+            &quot;lua_type&quot;: &quot;number&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 37,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;PageDataLocation&quot;,
+            &quot;desc&quot;: &quot;The location where data is found for non-standard pages.&quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 43,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;PageNextLocation&quot;,
+            &quot;desc&quot;: &quot;The location where the next page cursor is found for non-standard pages. &quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 49,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;PageNextLocation&quot;,
+            &quot;desc&quot;: &quot;The location where the next page cursor is found for non-standard pages. &quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 55,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;PagePreviousLocation&quot;,
+            &quot;desc&quot;: &quot;The location where the previous page cursor is found for non-standard pages. &quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 61,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;CursorTag&quot;,
+            &quot;desc&quot;: &quot;The querystring name of the cursor for non-standard pages.&quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 67,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;LimitTag&quot;,
+            &quot;desc&quot;: &quot;The querystring name of the limit for non-standard pages.&quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 73,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;SortOrderTag&quot;,
+            &quot;desc&quot;: &quot;The querystring name of the sort order for non-standard pages.&quot;,
+            &quot;lua_type&quot;: &quot;string&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 79,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;LastPage&quot;,
+            &quot;desc&quot;: &quot;If the page you are currently on is the last page.&quot;,
+            &quot;lua_type&quot;: &quot;boolean&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 85,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;FirstPage&quot;,
+            &quot;desc&quot;: &quot;If the page you are currently on is the first page.&quot;,
+            &quot;lua_type&quot;: &quot;boolean&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 91,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;NextCursor&quot;,
+            &quot;desc&quot;: &quot;The cursor for the next page.&quot;,
+            &quot;lua_type&quot;: &quot;string?&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 97,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;PreviousCursor&quot;,
+            &quot;desc&quot;: &quot;The cursor for the previous page.&quot;,
+            &quot;lua_type&quot;: &quot;string?&quot;,
+            &quot;readonly&quot;: true,
+            &quot;source&quot;: {
+                &quot;line&quot;: 103,
+                &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+            }
+        }
+    ],
+    &quot;types&quot;: [],
+    &quot;name&quot;: &quot;PageCursor&quot;,
+    &quot;desc&quot;: &quot;The object represents roblox pagination, many endpoints have thousands of data points,\nand it would be too expensive to send them all in one document, so they are sent in\nmanagable clusters called pages.\n\nThis class manages cursor-based pagination.&quot;,
+    &quot;source&quot;: {
+        &quot;line&quot;: 112,
+        &quot;path&quot;: &quot;libs/util/pages.lua&quot;
+    }
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_35-E thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href="#Client" class="table-of-contents__link toc-highlight">Client</a></li><li><a href="#CursorTag" class="table-of-contents__link toc-highlight">CursorTag</a></li><li><a href="#Endpoint" class="table-of-contents__link toc-highlight">Endpoint</a></li><li><a href="#FirstPage" class="table-of-contents__link toc-highlight">FirstPage</a></li><li><a href="#Interpret" class="table-of-contents__link toc-highlight">Interpret</a></li><li><a href="#LastPage" class="table-of-contents__link toc-highlight">LastPage</a></li><li><a href="#Limit" class="table-of-contents__link toc-highlight">Limit</a></li><li><a href="#LimitTag" class="table-of-contents__link toc-highlight">LimitTag</a></li><li><a href="#NextCursor" class="table-of-contents__link toc-highlight">NextCursor</a></li><li><a href="#PageDataLocation" class="table-of-contents__link toc-highlight">PageDataLocation</a></li><li><a href="#PageNextLocation" class="table-of-contents__link toc-highlight">PageNextLocation</a></li><li><a href="#PageNextLocation" class="table-of-contents__link toc-highlight">PageNextLocation</a></li><li><a href="#PagePreviousLocation" class="table-of-contents__link toc-highlight">PagePreviousLocation</a></li><li><a href="#PreviousCursor" class="table-of-contents__link toc-highlight">PreviousCursor</a></li><li><a href="#SortOrder" class="table-of-contents__link toc-highlight">SortOrder</a></li><li><a href="#SortOrderTag" class="table-of-contents__link toc-highlight">SortOrderTag</a></li><li><a href="#Tags" class="table-of-contents__link toc-highlight">Tags</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#Next" class="table-of-contents__link toc-highlight">:Next </a></li><li><a href="#Previous" class="table-of-contents__link toc-highlight">:Previous </a></li><li><a href="#__call" class="table-of-contents__link toc-highlight">.__call </a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2022 Uncontained0. Built with Moonwave and Docusaurus.</div></div></div></footer></div>
+<script src="/Lublox/assets/js/runtime~main.bcb5ee65.js"></script>
+<script src="/Lublox/assets/js/main.b9a504da.js"></script>
+</body>
+</html>
