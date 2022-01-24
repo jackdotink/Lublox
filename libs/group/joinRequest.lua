@@ -64,6 +64,8 @@ function JoinRequest.__call (_,Client,GroupId,UserId,Data)
         end
     end
 
+    if self.Valid then return self end
+
     local Success,Body = Client:Request ("GET","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/join-requests/users/"..self.User.Id)
     if Success then
         if Body ~= nil then

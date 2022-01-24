@@ -79,6 +79,12 @@ local DateTime = require("util/datetime")
     A PageCursor object that returns pages of members.
 ]=]
 --[=[
+    @within Group
+    @prop JoinRequests PageCursor
+    @readonly
+    A PageCursor object that returns pages of join requests.
+]=]
+--[=[
     The group object can view and edit data about groups.
 
     @class Group
@@ -192,6 +198,22 @@ function Group:GetMemberFromUser (User)
     return self.Client:Member (self,User)
 end
 
+--[=[
+    Gets all join requests for the group.
+
+    @return PageCursor
+]=]
+function Group:GetJoinRequests ()
+    self.JoinRequests = self.Client:PageCursor ("https://groups.roblox.com/v1/groups/"..self.Id.."/join-requests",{},function (v)
+        return self.Client:JoinRequest (
+            self,
+            self.Client:User (v.requester.userId,{Name=v.requester.username,DisplayName=v.requester.displayName}),
+            {Valid=true}
+        )
+    end)
+    return self.JoinRequests
+end
+
 Group._Requests = {
     Name = Group.GetData,
     Description = Group.GetData,
@@ -206,6 +228,8 @@ Group._Requests = {
     Roles = Group.GetRoles,
 
     Members = Group.GetMembers,
+
+    JoinRequests = Group.GetJoinRequests,
 }
 
 setmetatable(Group,Group)
