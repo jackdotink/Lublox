@@ -144,8 +144,8 @@ end
 ]=]
 function Client:Authenticate (Cookie)
     self.Cookie = Cookie
-    -- do http request to confirm authentication,
-    -- otherwise error.
+    local Success = self:Request ("GET","https://users.roblox.com/v1/users/authenticated")
+    assert(Success,"Lublox: Failed to authenticate!")
 end
 
 --[=[
