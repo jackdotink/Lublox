@@ -49,6 +49,36 @@ local DateTime = require("util/datetime")
     A list of users the user is friended to.
 ]=]
 --[=[
+    @within User
+    @prop FriendCount number
+    @readonly
+    The number of friends this user has.
+]=]
+--[=[
+    @within User
+    @prop Followers PageCursor
+    @readonly
+    A pages object of users that follow this user.
+]=]
+--[=[
+    @within User
+    @prop FollowerCount number
+    @readonly
+    The number of followers this user has.
+]=]
+--[=[
+    @within User
+    @prop Following PageCursor
+    @readonly
+    A pages object of users that this user follows.
+]=]
+--[=[
+    @within User
+    @prop FollowingCount number
+    @readonly
+    The number of users that this user follows.
+]=]
+--[=[
     The user object can view and edit data about users.
 
     @class User
@@ -162,6 +192,56 @@ function User:GetFriendCount ()
     end
 end
 
+--[=[
+    Gets a pages object that returns the user's followers as user objects.
+
+    @return PageCursor
+]=]
+function User:GetFollowers ()
+    self.Followers = self.Client:PageCursor ("https://friends.roblox.com/v1/users/"..self.Id.."/followers",nil,function (v)
+        return self.Client:User (v.id,{Name=v.name,DisplayName=v.displayName,Created=DateTime(v.created),Description=v.description,IsBanned=v.isBanned})
+    end)
+    return self.Followers
+end
+
+--[=[
+    Gets the number of users that follow this user.
+
+    @return number
+]=]
+function User:GetFollowerCount ()
+    local Success,Body = self.Client:Request ("GET","https://friends.roblox.com/v1/users/"..self.Id.."/followers/count")
+    if Success then
+        self.FollowerCount = Body["count"]
+        return Body["count"]
+    end
+end
+
+--[=[
+    Gets a pages object that returns the users this user follows as user objects.
+
+    @return PageCursor
+]=]
+function User:GetFollowing ()
+    self.Following = self.Client:PageCursor ("https://friends.roblox.com/v1/users/"..self.Id.."/followings",nil,function (v)
+        return self.Client:User (v.id,{Name=v.name,DisplayName=v.displayName,Created=DateTime(v.created),Description=v.description,IsBanned=v.isBanned})
+    end)
+    return self.Following
+end
+
+--[=[
+    Gets the number of users that this user is following.
+
+    @return number
+]=]
+function User:GetFollowingCount ()
+    local Success,Body = self.Client:Request ("GET","https://friends.roblox.com/v1/users/"..self.Id.."/followings/count")
+    if Success then
+        self.FollowingCount = Body["count"]
+        return Body["count"]
+    end
+end
+
 User._Requests = {
     Name = User.GetData,
     Description = User.GetData,
@@ -171,6 +251,11 @@ User._Requests = {
 
     Friends = User.GetFriends,
     FriendCount = User.GetFriendCount,
+
+    Followers = User.GetFollowers,
+    FollowerCount = User.GetFollowerCount,
+    Following = User.GetFollowing,
+    FollowingCount = User.GetFollowingCount,
 }
 
 setmetatable(User,User)
