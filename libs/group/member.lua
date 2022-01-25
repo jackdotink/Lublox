@@ -70,7 +70,19 @@ function Member.__call (_,Client,GroupId,UserId,Data)
         end
     end
 
-    return self
+    if self.Valid then return self end
+
+    local Success,Body = Client:Request ("GET","https://groups.roblox.com/v1/users/"..self.User.Id.."/groups/roles")
+    if Success then
+        for _,v in pairs(Body.data) do
+            if v.group.id == self.Group.Id then
+                if self.Role == nil then
+                    self.Role = Client:Role (v.role.id,{Name=v.role.name,Rank=v.role.rank})
+                end
+                return self
+            end
+        end
+    end
 end
 
 --[=[
