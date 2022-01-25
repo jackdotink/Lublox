@@ -12,7 +12,11 @@ local JoinRequest = require("group/joinRequest")
 local Pages = require("util/pages")
 
 local function MakeRequest (Method,Endpoint,Headers,Body)
-    local Response,ResponseBody = http.request(Method,Endpoint,Headers,Body)
+    local HeadersActual = {}
+    for i,v in pairs(Headers) do
+        HeadersActual[#HeadersActual+1] = {i,v}
+    end
+    local Response,ResponseBody = http.request(Method,Endpoint,HeadersActual,Body)
     local ReturnHeaders = {}
     for i,v in pairs(Response) do
         if type(v) == "table" then
@@ -166,9 +170,10 @@ function Client:Request (Method,Endpoint,Tags,Headers,Body)
     end
     local H = Headers or {}
     if Method ~= "GET" then
-        H[#H+1] = {"X-CSRF-TOKEN",self.Token}
+        H["X-CSRF-TOKEN"] = self.Token
+        H["Content-Type"] = "application/json"
     end
-    H[#H+1] = {"Cookie",self.Cookie}
+    H["Cookie"] = self.Cookie
     local B = nil
     if Body then
         B = json.encode (Body)
@@ -177,9 +182,8 @@ function Client:Request (Method,Endpoint,Tags,Headers,Body)
     if HR["x-csrf-token"] ~= nil then
         self.Token = HR["x-csrf-token"]
         if HR["code"] == 403 then
-            H = Headers or {}
-            H[#H+1] = {"X-CSRF-TOKEN",self.Token}
-            H[#H+1] = {"Cookie",self.cookie}
+            H["X-CSRF-TOKEN"] = self.Token
+            H["Cookie"] = self.Cookie
             HR,BR = MakeRequest (Method,Endpoint,H,B)
             return HR["code"] == 200,BR,HR
         end
