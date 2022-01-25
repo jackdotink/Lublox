@@ -30,7 +30,7 @@
 local Member = {}
 
 --[=[
-    Constructs a member object.
+    Constructs a member object. This will return nil if the user is not in the group.
 
     @param _ Member
     @param Client Client -- The client to make requests with.
