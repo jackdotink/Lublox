@@ -93,24 +93,38 @@ end
 --[=[
     Sets the role of the member in the group.
 
+    Returns if the operation was successful, and if it wasn't, it returns the reason.
+
     @param Role Role|number -- The Role or RoleId to set the user to.
     @return boolean
+    @return string?
 ]=]
 function Member:SetRole (Role)
     local RoleId = Role
     if type(RoleId) == "table" then RoleId = RoleId.Id end
-    local Success = self.Client:Request ("PATCH","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/users/"..self.User.Id,nil,nil,{roleId=RoleId})
-    return Success
+    local Success,Body = self.Client:Request ("PATCH","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/users/"..self.User.Id,nil,nil,{roleId=RoleId})
+    if not Success then
+        return Success,Body["errors"][1]["message"]
+    else
+        return Success
+    end
 end
 
 --[=[
     Exiles the member from the group.
 
+    Returns if the operation was successful, and if it wasn't, it returns the reason.
+
     @return boolean
+    @return string?
 ]=]
 function Member:Exile ()
-    local Success = self.Client:Request ("DELETE","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/users/"..self.User.Id)
-    return Success
+    local Success,Body = self.Client:Request ("DELETE","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/users/"..self.User.Id)
+    if not Success then
+        return Success,Body["errors"][1]["message"]
+    else
+        return Success
+    end
 end
 
 Member._Requests = {
