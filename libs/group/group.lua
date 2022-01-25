@@ -182,17 +182,17 @@ function Group:GetMembers ()
         return self.Client:Member (
             self,
             self.Client:User(v.user.userId,{Name=v.user.username,DisplayName=v.user.displayName}),
-            {Role=self.Client:Role(v.role.id,{Name=v.role.name,Description=v.role.description,Rank=v.role.rank,MemberCount=v.role.memberCount})}
+            {Role=self.Client:Role(v.role.id,{Name=v.role.name,Description=v.role.description,Rank=v.role.rank,MemberCount=v.role.memberCount}),Valid=true}
         )
     end)
     return self.Members
 end
 
 --[=[
-    Gets a member by user.
+    Gets a member by user. Will return nil if the user is not in the group.
 
     @param User User|number -- The UserId or User object.
-    @return Member
+    @return Member?
 ]=]
 function Group:GetMemberFromUser (User)
     return self.Client:Member (self,User)
