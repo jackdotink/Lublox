@@ -79,6 +79,12 @@ local DateTime = require("util/datetime")
     The number of users that this user follows.
 ]=]
 --[=[
+    @within User
+    @prop Groups {Member}
+    @readonly
+    The member object for every group the user is in.
+]=]
+--[=[
     The user object can view and edit data about users.
 
     @class User
@@ -242,6 +248,34 @@ function User:GetFollowingCount ()
     end
 end
 
+--[=[
+    Gets the member object for every group the user is in.
+
+    @return {Member}
+]=]
+function User:GetGroups ()
+    local Success,Body = self.Client:Request ("GET","https://groups.roblox.com/v2/users/"..self.Id.."/groups/roles")
+    if Success then
+        self.Groups = {}
+        for _,v in pairs(Body.data) do
+            self.Groups[#self.Groups+1] = self.Client:Member (
+                self.Client:Group (v.group.id,{
+                    Name = v.group.name,
+                    MemberCount = v.group.memberCount,
+                }),
+                self,
+                {
+                    Role = self.Client:Role (v.role.id,{
+                        Name = v.role.name,
+                        Rank = v.role.rank,
+                    })
+                }
+            )
+        end
+        return self.Groups
+    end
+end
+
 User._Requests = {
     Name = User.GetData,
     Description = User.GetData,
@@ -256,6 +290,8 @@ User._Requests = {
     FollowerCount = User.GetFollowerCount,
     Following = User.GetFollowing,
     FollowingCount = User.GetFollowingCount,
+
+    Groups = User.GetGroups,
 }
 
 setmetatable(User,User)
