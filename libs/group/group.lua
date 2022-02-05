@@ -224,6 +224,19 @@ function Group:GetJoinRequestFromUser (User)
     return self.Client:JoinRequest (self,User)
 end
 
+--[[
+--[=[
+    Gets a pages object for all group wall posts.
+
+    @return PageCursor
+]=]
+function Group:GetWall ()
+    self.Wall = self.Client:PageCursor ("https://groups.roblox.com/v2/groups/1/wall/posts",nil,function (v)
+        -- add wallpost class
+    end)
+end
+--]]
+
 Group._Requests = {
     Name = Group.GetData,
     Description = Group.GetData,
