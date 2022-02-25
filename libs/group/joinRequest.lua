@@ -69,6 +69,7 @@ function JoinRequest.__call (_,Client,GroupId,UserId,Data)
     local Success,Body = Client:Request ("GET","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/join-requests/users/"..self.User.Id)
     if Success then
         if Body ~= nil then
+            self.Created = DateTime(Body.created)
             return self
         end
     end
