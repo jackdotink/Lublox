@@ -279,6 +279,32 @@ function User:GetGroups ()
     end
 end
 
+--[=[
+    Returns if the user owns the gamepass.
+
+    @param GamepassId number -- The gamepass ID
+    @return boolean
+]=]
+function User:OwnsGamepass (GamepassId)
+    local Success,Body = self.Client:Request ("GET","https://inventory.roblox.com/v1/users/"..self.Id.."/items/GamePass/"..GamepassId)
+    if Success then
+        return Body.data[1] ~= nil
+    end
+end
+
+--[=[
+    Returns if the user owns the badge.
+
+    @param BadgeId number -- The badge ID
+    @return boolean
+]=]
+function User:OwnsBadge (BadgeId)
+    local Success,Body = self.Client:Request ("GET","https://inventory.roblox.com/v1/users/"..self.Id.."/items/Badge/"..BadgeId)
+    if Success then
+        return Body.data[1] ~= nil
+    end
+end
+
 User._Requests = {
     Name = User.GetData,
     Description = User.GetData,
