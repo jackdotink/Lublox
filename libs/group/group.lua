@@ -104,7 +104,10 @@ function Group.__call (_,Client,GroupId,Data)
     local self = {}
     setmetatable(self,{__index=function (t,i)
         if Group[i] then return Group[i] end
-        if Group._Requests[i] then Group._Requests[i](t) return rawget(t,i) end
+        if Group._Requests[i] then
+            Group._Requests[i](t) 
+            return rawget(t,i)
+        end
     end})
 
     self.Client = Client

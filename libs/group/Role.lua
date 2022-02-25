@@ -66,7 +66,10 @@ function Role.__call (_,Client,RoleId,Data)
     local self = {}
     setmetatable(self,{__index=function (t,i)
         if Role[i] then return Role[i] end
-        if Role._Requests[i] then Role._Requests[i](t) return rawget(t,i) end
+        if Role._Requests[i] then
+            Role._Requests[i](t)
+            return rawget(t,i)
+        end
     end})
 
     self.Client = Client

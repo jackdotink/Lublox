@@ -65,7 +65,10 @@ function WallPost.__call (_,Client,Id,GroupId,UserId,Data)
 
     setmetatable(self,{__index=function (t,i)
         if WallPost[i] then return WallPost[i] end
-        if WallPost._Requests[i] then WallPost._Requests[i](t) return rawget(t,i) end
+        if WallPost._Requests[i] then
+            WallPost._Requests[i](t)
+            return rawget(t,i)
+        end
     end})
 
     self.Client = Client

@@ -104,7 +104,10 @@ function User.__call (_,Client,UserId,Data)
     local self = {}
     setmetatable(self,{__index=function (t,i)
         if User[i] then return User[i] end
-        if User._Requests[i] then User._Requests[i](t) return rawget(t,i) end
+        if User._Requests[i] then
+            User._Requests[i](t)
+            return rawget(t,i)
+        end
     end})
 
     self.Client = Client
@@ -120,7 +123,7 @@ function User.__call (_,Client,UserId,Data)
     elseif type(UserId) == "string" then
         local Success,Body = self.Client:Request("POST","https://users.roblox.com/v1/usernames/users",{},{usernames={UserId},excludeBannedUsers=true})
         if Success then
-            Sucess = false
+            Success = false
             for _,v in pairs(Body["data"]) do
                 if string.lower(v.name) == string.lower(UserId) then
                     self.Id = v.id

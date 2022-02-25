@@ -164,7 +164,9 @@ function PageCursor:Next ()
     end
 
     local Tags = self.Tags or {}
-    if self.NextCursor then Tags[self.CursorTag] = self.NextCursor end
+    if self.NextCursor then
+        Tags[self.CursorTag] = self.NextCursor
+    end
     Tags[self.SortOrderTag] = self.SortOrder
     Tags[self.LimitTag] = self.Limit
 
@@ -193,7 +195,9 @@ function PageCursor:Previous ()
     end
 
     local Tags = self.Tags or {}
-    if self.PreviousCursor then Tags[self.CursorTag] = self.PreviousCursor end
+    if self.PreviousCursor then
+        Tags[self.CursorTag] = self.PreviousCursor
+    end
     Tags[self.SortOrderTag] = self.SortOrder
     Tags[self.LimitTag] = self.Limit
 

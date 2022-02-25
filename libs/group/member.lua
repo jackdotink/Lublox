@@ -43,7 +43,10 @@ function Member.__call (_,Client,GroupId,UserId,Data)
     local self = {}
     setmetatable(self,{__index=function (t,i)
         if Member[i] then return Member[i] end
-        if Member._Requests[i] then Member._Requests[i](t) return rawget(t,i) end
+        if Member._Requests[i] then
+            Member._Requests[i](t)
+            return rawget(t,i)
+        end
     end})
 
     self.Client = Client
@@ -113,7 +116,9 @@ end
 ]=]
 function Member:SetRole (Role)
     local RoleId = Role
-    if type(RoleId) == "table" then RoleId = RoleId.Id end
+    if type(RoleId) == "table" then
+        RoleId = RoleId.Id
+    end
     local Success,Body = self.Client:Request ("PATCH","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/users/"..self.User.Id,nil,nil,{roleId=RoleId})
     if not Success then
         return Success,Body["errors"][1]["message"]
