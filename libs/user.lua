@@ -85,6 +85,48 @@ local DateTime = require("util/datetime")
     The member object for every group the user is in.
 ]=]
 --[=[
+    @within User
+    @prop PresenceType PresenseTypeEnum
+    @readonly
+    The presense of the user.
+]=]
+--[=[
+    @within User
+    @prop LastLocation string
+    @readonly
+    The last recorded location of the user. This is relatively undocumented.
+]=]
+--[=[
+    @within User
+    @prop PlaceId number
+    @readonly
+    The current placeid of the user.
+]=]
+--[=[
+    @within User
+    @prop RootPlaceId number
+    @readonly
+    The root placeid of the game they are in.
+]=]
+--[=[
+    @within User
+    @prop GameId string
+    @readonly
+    Unknown?
+]=]
+--[=[
+    @within User
+    @prop UniverseId number
+    @readonly
+    Unknown?
+]=]
+--[=[
+    @within User
+    @prop LastOnline number
+    @readonly
+    The last time the user was online. In unix time.
+]=]
+--[=[
     The user object can view and edit data about users.
 
     @class User
@@ -305,6 +347,32 @@ function User:OwnsBadge (BadgeId)
     end
 end
 
+--[=[
+    Gets the presense data of the user.
+
+    @return {PresenceType:PresenceTypeEnum,LastLocation:string,PlaceId:number,RootPlaceId:number,GameId:string,UniverseId:number,LastOnline:number}
+]=]
+function User:GetPresenseData ()
+    local Success,Body = self.Client:Request ("POST","https://presence.roblox.com/v1/presence/users",nil,nil,{userIds={self.Id}})
+    if Success then
+        if not Body.userPresences then return end
+        if not Body.userPresences[1] then return end
+        Body = Body.userPresences[1]
+        local Data = {}
+        Data.PresenceType = Body.userPresenceType
+        Data.LastLocation = Body.lastLocation
+        Data.PlaceId = Body.placeId
+        Data.RootPlaceId = Body.rootPlaceId
+        Data.GameId = Body.gameId
+        Data.UniverseId = Body.universeId
+        Data.LastOnline = DateTime(Body.lastOnline)
+        for i,v in pairs(Data) do
+            self[i] = v
+        end
+        return Data
+    end
+end
+
 User._Requests = {
     Name = User.GetData,
     Description = User.GetData,
@@ -321,6 +389,14 @@ User._Requests = {
     FollowingCount = User.GetFollowingCount,
 
     Groups = User.GetGroups,
+
+    PresenceType = User.GetPresenseData,
+    LastLocation = User.GetPresenseData,
+    PlaceId = User.GetPresenseData,
+    RootPlaceId = User.GetPresenseData,
+    GameId = User.GetPresenseData,
+    UniverseId = User.GetPresenseData,
+    LastOnline = User.GetPresenseData,
 }
 
 setmetatable(User,User)
