@@ -47,6 +47,12 @@
     A PageCursor object that retrieves the members in the role.
 ]=]
 --[=[
+    @within Role
+    @prop Permissions {[string]=boolean}
+    @readonly
+    A table with permissions. The full list of permissions can be viewed on the permissions page.
+]=]
+--[=[
     The role object can view and edit data about roles.
 
     @class Role
@@ -118,6 +124,39 @@ function Role:GetMembers ()
     end)
     self.Members = Data
     return Data
+end
+
+--[=[
+    Gets a table of permissions.
+
+    @return {[string]=boolean}
+]=]
+function Role:GetPermissions ()
+    local Success,Body = self.Client:Request ("GET","https://groups.roblox.com/v1/groups/"..self.Group.Id.."/roles/"..self.Id.."permissions")
+    if Success then
+        local Data = {
+            ViewWall = Body.groupPostsPermissions.viewWall,
+            PostToWall = Body.groupPostsPermissions.postToWall,
+            DeleteFromWall = Body.groupPostsPermissions.deleteFromWall,
+            ViewStatus = Body.groupPostsPermissions.viewStatus,
+            PostToStatus = Body.groupPostsPermissions.postToStatus,
+            ChangeRank = Body.groupMembershipPermissions.changeRank,
+            InviteMembers = Body.groupMembershipPermissions.inviteMembers,
+            RemoveMembers = Body.groupMembershipPermissions.removeMembers,
+            ManageRelationships = Body.groupManagementPermissions.manageRelationships,
+            ViewAuditLogs = Body.groupManagementPermissions.viewAuditLogs,
+            SpendGroupFunds = Body.groupEconomyPermissions.spendGroupFunds,
+            AdvertiseGroup = Body.groupEconomyPermissions.advertiseGroup,
+            CreateItems = Body.groupEconomyPermissions.createItems,
+            ManageItems = Body.groupEconomyPermissions.manageItems,
+            AddGroupPlaces = Body.groupEconomyPermissions.addGroupPlaces,
+            ManageGroupGames = Body.groupEconomyPermissions.manageGroupGames,
+            ViewGroupPayouts = Body.groupEconomyPermissions.viewGroupPayouts,
+            ViewAnalytics = Body.groupEconomyPermissions.viewAnalytics,
+        }
+        self.Permissions = Data
+        return Data
+    end
 end
 
 Role._Requests = {
