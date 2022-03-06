@@ -1,6 +1,6 @@
 return {
     name = "Uncontained0/Lublox",
-    version = "0.0.0",
+    version = "0.1.0",
     description = "An object-oriented lua wrapper for the Roblox web API.",
     tags = { "roblox", "webapi", "web", "api", "rblx"},
     license = "MIT",
