@@ -18,6 +18,7 @@ to use way.
 ## Installation
 
 You can install this library with lit. Run the following command in your project directory.
+
 `lit install Uncontained0/Lublox`
 
 ## Documentation
