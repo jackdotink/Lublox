@@ -27,7 +27,7 @@ To learn how to use Lublox, visit the [documentation](https://uncontained0.githu
 
 ## Contact Info
 
-Contact me in the [RoAPI Discord Server](https://discord.gg/JScG28WXmV). My user is `Uncontained0#0729`.
+Contact me in the [Lublox Discord Server](https://discord.gg/gUMmft3UWm). My user is `Uncontained0#0729`.
 
 ## Other
 
